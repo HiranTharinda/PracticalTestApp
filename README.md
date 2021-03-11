@@ -5,10 +5,10 @@ run npm install in ./client
 update create env file from env-sample
 update my sql database credentials
 
-## Start Server
+## Starting the Server
 
 go to root directory and run -> npm start
 
-## Start Front End
+## Starting the Front End
 
 go to ./client directory and run -> npm start

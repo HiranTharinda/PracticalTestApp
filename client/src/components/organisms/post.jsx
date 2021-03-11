@@ -7,7 +7,6 @@ class Post extends Component {
     }
 
     render() {
-
         const {post, single} = this.props;
         return (
             <React.Fragment>

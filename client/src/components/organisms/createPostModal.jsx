@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, Form } from 'reactstrap';
+import { Form, Button, Modal, ModalHeader, ModalBody, ModalFooter,  FormGroup, Label, Input, } from 'reactstrap';
 import { connect } from 'react-redux';
 import { GithubPicker } from 'react-color'
-
+import {Col} from 'reactstrap'
 import {createPost} from '../../actions/postActions';
 
 
@@ -12,18 +12,47 @@ class CreatePost extends Component {
         super(props);
         this.state ={
             isOpen: false,
+            title:null,
+            description:null,
+            color:null
         }
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+ 
+    
+    handleChangeComplete = (color) => {
+        this.setState({ color: color.hex });
+    };
+    
+    handleDesChange(e){
+        this.setState({
+            description:e
+        })
+    }
+
+    handleTitleChange(e){
+        this.setState({
+            title:e
+        })
+    }
+
     handleSubmit(e) {
-    const {createPost}=this.props;
-    const formValues = {
-        title:this.title.value,
-        description:this.description.value,
-        }
-    createPost(formValues)
-    e.preventDefault();
+        e.preventDefault();
+        const {createPost}=this.props;
+        const {title, description, color} = this.state;
+        if(!title){
+            alert('Please Enter the Title')
+            
+        } else {
+            const formValues = {
+                title,
+                description,
+                color
+                }
+            createPost(formValues)
+            this.toggle()  
+            }
     }
 
     toggle = () => {
@@ -39,21 +68,29 @@ class CreatePost extends Component {
             <div>
                 <Form inline onSubmit={(e) =>  e.preventDefault()}>
                 <div className="container-fluid d-flex">
-                    <Button outline className="col-md-4 mb-4 ml-4"color="primary" onClick={()=>this.toggle()}>Create New Post</Button>{' '}
-                    </div>
+                <Col sm="12" md={{ size: 6, offset: 3 }}>
+                    <Button outline className="mb-4 mt-4" color="primary" onClick={()=>this.toggle()}>Create New Post</Button>{' '}
+                   </Col> </div>
                 <Modal isOpen={isOpen} toggle={()=>this.toggle()} >
                     <ModalHeader toggle={()=>this.toggle()}>Create Post</ModalHeader>
                     <ModalBody>
-                            <form onSubmit={this.handleSubmit}>
-                            <label>
-                                <input type="text" placeholder={'Title...'} ref={(input) => this.title = input} />
-                            </label>
-                            <label>
-                                <input type="text" placeholder={'Description...'} ref={(input) => this.description = input} />
-                            </label>
-                            <input type="submit" value="Publish" />
-                            </form>
-                        <GithubPicker />
+                    <Form onSubmit={this.handleSubmit}>
+                        <FormGroup >
+                            <Label for="title">Title</Label>
+                            <Input type="text" onChange={(e) => this.handleTitleChange(`${e.target.value}`)} name="title" id="title" placeholder="Title.." />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label for="description">Description</Label>
+                            <Input type="text" onChange={(e) => this.handleDesChange(`${e.target.value}`)} name="description" id="description" placeholder="Description here.." />
+                            </FormGroup>
+                            <FormGroup>
+                                <GithubPicker 
+                                    color={ this.state.background }
+                                    onChangeComplete={ this.handleChangeComplete }>    
+                                </GithubPicker>
+                            </FormGroup>
+                        <Button onClick ={(e) => this.handleSubmit(e)}>Publish</Button>
+                        </Form>
                     </ModalBody>
                     <ModalFooter>
                     </ModalFooter>

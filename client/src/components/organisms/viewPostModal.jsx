@@ -1,11 +1,10 @@
 
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, Form } from 'reactstrap';
+import React, { Component } from 'react'
+import { Form, Button, Modal, ModalHeader, ModalBody,  FormGroup, Label, Input, } from 'reactstrap';
 import { connect } from 'react-redux';
 import Comments from '../organisms/comments';
 import Post from '../organisms/post'
 import {createComment} from '../../actions/commentActions'
-
-import React, { Component } from 'react'
 
 class OpenPost extends Component {
 
@@ -13,19 +12,35 @@ class OpenPost extends Component {
         super(props);
         this.state ={
             isOpen: false,
+            comment:null,
         }
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-      handleSubmit(e) {
-        const {createComment, post}=this.props;
-        const formValues = {
-            postId:post.id,
-            text:this.text.value
-         }
-         createComment(formValues)
+    
+
+    handleComChange(e){
+        this.setState({
+            comment:e
+        })
+    }
+
+    handleSubmit(e) {
         e.preventDefault();
-      }
+        const {createComment, post}=this.props;
+        const {comment} = this.state;
+        if(!comment){
+            alert('Please Enter the comment')
+            
+        } else {
+            const formValues = {
+                postId:post.id,
+                text:comment
+             }
+            createComment(formValues)
+            this.toggle()  
+            }
+    }
     
 
     toggle = () => {
@@ -44,8 +59,8 @@ class OpenPost extends Component {
                     <Button outline className="class-col" color="primary" onClick={()=>this.toggle()}>View</Button>{' '}
                 </Form>
                 <Modal isOpen={isOpen} toggle={()=>this.toggle()} >
-                    <ModalHeader onClick={()=>this.toggle()}>{post.title}</ModalHeader>
-                    <ModalBody>
+                    <ModalHeader toggle={()=>this.toggle()}><p style={{color:post.color}}>{post.title}</p></ModalHeader>
+                    <ModalBody >
                     <div className="col-md-4 mb-4" >
                         <Post post={post} single ={true}/>
                         </div>
@@ -54,12 +69,14 @@ class OpenPost extends Component {
                             <Comments comments={post.comments}/>
                             </div>
                         ):null}
-                             <form onSubmit={this.handleSubmit}>
-                            <label>
-                                <input type="text"  placeholder={'Comment here...'}  ref={(input)=> this.text= input} />
-                            </label>
-                            <input type="submit" value="Comment" />
-                            </form>
+
+                        <Form onSubmit={this.handleSubmit}>
+                        <FormGroup>
+                            <Input type="text" onChange={(e) => this.handleComChange(`${e.target.value}`)} name="comment" id="comment" placeholder="Comment here.." />
+                            </FormGroup>
+                        <Button onClick ={(e) => this.handleSubmit(e)}>Comment</Button>
+                        </Form>
+
                     </ModalBody>
                 </Modal>
             </div>

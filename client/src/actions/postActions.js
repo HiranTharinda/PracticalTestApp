@@ -1,10 +1,16 @@
-import { FETCH_POSTS } from './types';
+import { FETCH_POSTS, CREATE_POST } from './types';
 import axios from 'axios';
 
 export const createPost = (data) => async dispatch => {
     const url = `/api/posts/create-post`;
     try {
-        await axios.post(url, data);
+        await axios.post(url, data)
+            .then(res =>
+                dispatch({
+                    type: CREATE_POST,
+                    payload: res.data,
+                })
+            )
     } catch (err) {
         console.log('error in fetch')
     }

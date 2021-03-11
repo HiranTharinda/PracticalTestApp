@@ -15,7 +15,7 @@ class Comment extends Component {
             <div>
                 <Card>
                     <CardBody>
-                        <CardText>{comment.text}</CardText>
+                        <CardText className ={"ml-4"}>{comment.text}</CardText>
                     </CardBody>
                 </Card>
             </div>

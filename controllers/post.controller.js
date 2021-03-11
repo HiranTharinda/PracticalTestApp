@@ -39,7 +39,12 @@ exports.createPost = (req, res) => {
 exports.getAllPosts = (req, res) => {
 
     Post.findAll({
-        include: ["comments"],
+        include: [{
+            model: Comment,
+            as: "comments",
+            order: [['id', 'DESC']]
+        }],
+        order: [['id', 'DESC']]
     }).then(data => {
         res.send(data);
     })

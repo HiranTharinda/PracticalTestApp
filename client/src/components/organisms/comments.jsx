@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import Comment from '../molecules/comment'
 
 class Comments extends Component {
@@ -9,8 +8,6 @@ class Comments extends Component {
 
     render() {
         const {comments} = this.props
-        const numbers = [1, 2, 3, 4];
-
         return (
             <React.Fragment>
                 <div className="container-fluid d-flex">

@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 import NavigationBar from '../organisms/navBar';
 import Posts from '../organisms/posts';
-import CreatePost from '../organisms/createPostModal';
+import {Col} from 'reactstrap'
 
 class HomePage extends Component {
     render() {
         return (
-            <div className={'mainDiv'}>
+            <Col sm="12" md={{ size: 6, offset: 3 }}>
                 <NavigationBar />
-                <CreatePost/>
                 <Posts />
-            </div>
+            </Col>
         )
     }
 }
