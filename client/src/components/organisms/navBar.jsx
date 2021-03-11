@@ -10,7 +10,7 @@ class NavigationBar extends Component {
     return (
       <div>
         <Navbar color="light" light expand="md">
-          <NavbarBrand href="/">Home</NavbarBrand>
+          <NavbarBrand>Home</NavbarBrand>
         </Navbar>
       </div>
     );

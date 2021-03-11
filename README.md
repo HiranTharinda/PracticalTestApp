@@ -1,14 +1,10 @@
 ## How to setup
 
-run npm install in root directory
-run npm install in ./client
-update create env file from env-sample
-update my sql database credentials
+->create a db in your mysql server
+->create env file from env-sample file and update the mysql credentials
 
-## Starting the Server
+## Starting the client and sercer
 
-go to root directory and run -> npm start
-
-## Starting the Front End
-
-go to ./client directory and run -> npm start
+run these scripts
+->npm run modules
+->npm run dev

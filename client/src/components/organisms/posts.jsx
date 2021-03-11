@@ -25,8 +25,7 @@ class Posts extends Component {
         if(posts !== prevProps.posts){
             if(posts){
                 this.setState({posts:posts})
-            }
-            
+            }   
         }
     }
 

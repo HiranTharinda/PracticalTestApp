@@ -1,13 +1,12 @@
 
 import React, { Component } from 'react'
-import { Form, Button, Modal, ModalHeader, ModalBody,  FormGroup, Label, Input, } from 'reactstrap';
+import { Form, Button, Modal, ModalHeader, ModalBody,  FormGroup, Input, } from 'reactstrap';
 import { connect } from 'react-redux';
 import Comments from '../organisms/comments';
 import Post from '../organisms/post'
 import {createComment} from '../../actions/commentActions'
 
 class OpenPost extends Component {
-
     constructor(props){
         super(props);
         this.state ={
@@ -16,8 +15,6 @@ class OpenPost extends Component {
         }
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-
-    
 
     handleComChange(e){
         this.setState({
@@ -30,7 +27,7 @@ class OpenPost extends Component {
         const {createComment, post}=this.props;
         const {comment} = this.state;
         if(!comment){
-            alert('Please Enter the comment')
+            alert('Please enter a comment')
             
         } else {
             const formValues = {
@@ -38,6 +35,10 @@ class OpenPost extends Component {
                 text:comment
              }
             createComment(formValues)
+            this.setState({
+                postId:null,
+                comment:null,
+            })
             this.toggle()  
             }
     }
@@ -76,7 +77,6 @@ class OpenPost extends Component {
                             </FormGroup>
                         <Button onClick ={(e) => this.handleSubmit(e)}>Comment</Button>
                         </Form>
-
                     </ModalBody>
                 </Modal>
             </div>

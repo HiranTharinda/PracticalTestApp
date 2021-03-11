@@ -42,7 +42,7 @@ class CreatePost extends Component {
         const {createPost}=this.props;
         const {title, description, color} = this.state;
         if(!title){
-            alert('Please Enter the Title')
+            alert('Please enter a Title')
             
         } else {
             const formValues = {
@@ -51,6 +51,11 @@ class CreatePost extends Component {
                 color
                 }
             createPost(formValues)
+            this.setState({
+                title:null,
+                description:null,
+                color:null
+            })
             this.toggle()  
             }
     }

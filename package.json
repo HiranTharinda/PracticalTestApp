@@ -4,7 +4,13 @@
   "description": "app created for practical test",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "server": "npm start src/server.js",
+    "client": "npm start --prefix client",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server_modules": "npm install",
+    "client_modules": "npm install --prefix client",
+    "modules": "concurrently \"npm run server_modules\" \"npm run client_modules\""
   },
   "author": "Hiran Tharinda",
   "license": "ISC",
